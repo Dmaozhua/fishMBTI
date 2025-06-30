@@ -1,0 +1,109 @@
+<!--pages/profile/profile.wxml-->
+
+<view class="container">
+  <!-- 标题 -->
+  <view class="title-section">
+    <text class="main-title">我的钓鱼档案</text>
+  </view>
+
+  <!-- 用户信息Banner -->
+  <view class="banner-section">
+    <view class="banner-card">
+      <view class="banner-content">
+        <view class="user-avatar">
+          <text class="avatar-icon">🎣</text>
+        </view>
+        <text class="banner-title">钓鱼人</text>
+        <text class="banner-subtitle">初级钓手 · 探索钓鱼世界</text>
+      </view>
+      <view class="banner-decoration">🌊</view>
+    </view>
+  </view>
+
+  <!-- 功能模块 -->
+  <view class="function-modules">
+    <!-- 测试记录模块 -->
+    <view class="function-module">
+      <view class="module-header">
+        <text class="module-title">📊 测试记录</text>
+        <text class="module-subtitle">查看历史测试结果</text>
+      </view>
+      <view class="module-content">
+        <text class="module-desc">回顾你的钓鱼人格测试历程</text>
+        <button class="function-btn records" hover-class="btn-hover">查看记录</button>
+      </view>
+    </view>
+
+    <!-- 设置模块 -->
+    <view class="function-module">
+      <view class="module-header">
+        <text class="module-title">⚙️ 应用设置</text>
+        <text class="module-subtitle">个性化配置</text>
+      </view>
+      <view class="module-content">
+        <text class="module-desc">自定义你的应用体验</text>
+        <button class="function-btn settings" hover-class="btn-hover">进入设置</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 更新日志模块 -->
+  <view class="update-log-module">
+    <view class="module-header" bindtap="toggleUpdateLog">
+      <text class="module-title">📝 更新日志</text>
+      <text class="module-subtitle">应用版本更新记录</text>
+      <view class="toggle-icon {{isUpdateLogOpen ? 'open' : ''}}">
+        <text>{{isUpdateLogOpen ? '▲' : '▼'}}</text>
+      </view>
+    </view>
+    <view class="log-content {{isUpdateLogOpen ? 'open' : 'closed'}}">
+      <view class="log-item">
+        <view class="log-header">
+          <text class="log-version">v1.3.0</text>
+          <text class="log-date">2025-05</text>
+        </view>
+        <view class="log-details">
+          <view class="log-entry">• 新增钓鱼图鉴功能</view>
+          <view class="log-entry">• 新增音乐播放功能</view>
+          <view class="log-entry">• UI持续优化</view>
+        </view>
+      </view>
+      <view class="log-item">
+        <view class="log-header">
+          <text class="log-version">v1.2.0</text>
+          <text class="log-date">2025-03</text>
+        </view>
+        <view class="log-details">
+          <view class="log-entry">• 新增钓鱼成就系统</view>
+          <view class="log-entry">• 优化用户界面体验</view>
+          <view class="log-entry">• 修复已知问题</view>
+        </view>
+      </view>
+      <view class="log-item">
+        <view class="log-header">
+          <text class="log-version">v1.1.0</text>
+          <text class="log-date">2025-03</text>
+        </view>
+        <view class="log-details">
+          <view class="log-entry">• 新增测试功能数据</view>
+          <view class="log-entry">• 修复已知问题</view>
+        </view>
+      </view>
+      <view class="log-item">
+        <view class="log-header">
+          <text class="log-version">v1.0.0</text>
+          <text class="log-date">2025-03</text>
+        </view>
+        <view class="log-details">
+          <view class="log-entry">• 小程序首次发布</view>
+          <view class="log-entry">• 基础功能上线</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部版权信息 -->
+  <view class="footer">
+    <text class="copyright">© 2025 钓鱼人测试 版权所有</text>
+  </view>
+</view>

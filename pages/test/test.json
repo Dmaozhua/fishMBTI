@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+ 
+    },
+    "navigationBarTitleText": "测试题页面",
+    "navigationBarBackgroundColor": "#ECF0F1",
+    "navigationBarTextStyle": "black"
+}

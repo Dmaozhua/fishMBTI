@@ -1,0 +1,45 @@
+{
+    "usingComponents": {},
+    "lazyCodeLoading": "requiredComponents",
+    "requiredBackgroundModes": [
+        "audio"
+    ],
+    "pages": [
+        "pages/home/home",
+        "pages/profile/profile",
+        "pages/test/test"
+    ],
+    "window": {
+        "navigationBarTitleText": "钓鱼人MBTI",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#1E3A8A",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "custom"
+    },
+    "debug": true,
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于获取当地天气"
+        }
+    },
+    "tabBar": {
+        "backgroundColor": "#ECF0F1",
+        "borderStyle": "white",
+        "color": "#BDC3C7",
+        "selectedColor": "#2C3E50",
+        "list": [
+            {
+                "pagePath": "pages/home/home",
+                "text": "首页",
+                "iconPath": "/images/tab/钓鱼.png",
+                "selectedIconPath": "/images/tab/钓鱼 (1).png"
+            },
+            {
+                "pagePath": "pages/profile/profile",
+                "text": "个人中心",
+                "iconPath": "/images/tab/路亚轮.png",
+                "selectedIconPath": "/images/tab/路亚轮 (1).png"
+            }
+        ]
+    }
+}

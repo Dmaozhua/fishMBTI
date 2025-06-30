@@ -1,0 +1,737 @@
+/* 设置页面级别的背景色 */
+page {
+  background: linear-gradient(to bottom, #2C3E50 0%, #BDC3C7 70%, #ECF0F1 100%);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #2C3E50 0%, #BDC3C7 70%, #ECF0F1 100%);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+    /* 添加顶部内边距，适配安全区域 */
+    /* padding-top: calc(10rpx + env(safe-area-inset-top));  */
+}
+
+.container {
+    padding: 20rpx;
+    flex: 1;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-color: transparent;
+    -webkit-overflow-scrolling: touch; /* 保持滚动流畅 */
+    overflow: scroll;
+    scrollbar-width: none; /* Firefox 隐藏 */
+    margin-top: 10rpx; /* 根据实际情况调整这个值 */
+}
+.scroll-area::-webkit-scrollbar { display: none; 
+height: 100%;
+}
+/* 隐藏滚动条 - 增强版，确保所有滚动元素的滚动条都被隐藏 */
+.container::-webkit-scrollbar {
+  display: none;
+}
+page::-webkit-scrollbar,
+.page-container::-webkit-scrollbar,
+scroll-view::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+/* 确保iOS设备也隐藏滚动条 */
+.container,
+page,
+.page-container,
+scroll-view {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* 标题样式 */
+.title-section {
+    text-align: center;
+    padding: 40rpx 30rpx 20rpx;
+    margin-top: 20rpx;
+}
+
+.main-title {
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #f0f9ff;
+    text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
+    letter-spacing: 2rpx;
+}
+
+/* Banner样式 */
+.banner-section {
+    margin: 20rpx 30rpx;
+}
+
+.banner-card {
+    border-radius: 30rpx;
+    padding: 40rpx 30rpx;
+    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    box-shadow: 0 12rpx 24rpx rgba(0, 0, 0, 0.15), 
+                inset 0 -4rpx 12rpx rgba(255, 255, 255, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: none;
+}
+
+.banner-card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 200rpx;
+    height: 200rpx;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.banner-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    right: -30%;
+    width: 220rpx;
+    height: 220rpx;
+    background: radial-gradient(circle, rgba(78,67,118,0.3) 0%, rgba(78,67,118,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+}
+
+.banner-title {
+    font-size: 38rpx;
+    font-weight: 600;
+    margin-bottom: 15rpx;
+    color: #f0f9ff;
+    text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+    letter-spacing: 1rpx;
+    display: block;
+}
+
+.banner-subtitle {
+    font-size: 28rpx;
+    margin-top: 15rpx;
+    color: #e3f2fd;
+    opacity: 0.95;
+    text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.15);
+    font-weight: 300;
+    display: block;
+}
+
+.banner-decoration {
+    position: absolute;
+    top: 20rpx;
+    right: 30rpx;
+    font-size: 60rpx;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.banner-card:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+
+/* 测试模块样式 */
+.test-modules {
+    margin: 30rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 25rpx;
+}
+
+.test-module {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12rpx);
+    -webkit-backdrop-filter: blur(12rpx);
+    border-radius: 25rpx;
+    padding: 30rpx;
+    box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.test-module:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+.module-header {
+    margin-bottom: 20rpx;
+}
+
+.module-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #f0f9ff;
+    margin-bottom: 8rpx;
+    display: block;
+}
+
+.module-subtitle {
+    font-size: 24rpx;
+    color: #e3f2fd;
+    opacity: 0.8;
+    display: block;
+}
+
+.module-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+}
+
+.module-desc {
+    font-size: 26rpx;
+    color: #e3f2fd;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* 测试按钮样式 */
+.test-btn.quick {
+    background: linear-gradient(135deg, #ff6b6b, #ffa726);
+    color: white;
+    border-radius: 20rpx;
+    padding: 25rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    box-shadow: 0 6rpx 12rpx rgba(255, 107, 107, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.test-btn.professional {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: white;
+    border-radius: 20rpx;
+    padding: 25rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    box-shadow: 0 6rpx 12rpx rgba(78, 205, 196, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.test-btn.quick:active,
+.test-btn.professional:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+}
+.welcome-card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 200rpx;
+    height: 200rpx;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+.welcome-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    right: -30%;
+    width: 220rpx;
+    height: 220rpx;
+    background: radial-gradient(circle, rgba(78,67,118,0.3) 0%, rgba(78,67,118,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.welcome {
+    font-size: 38rpx;
+    font-weight: 600;
+    margin-bottom: 15rpx;
+    position: relative;
+    z-index: 2;
+    color: #f0f9ff;
+    text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+    letter-spacing: 1rpx;
+}
+
+.welcome-subtitle {
+    font-size: 28rpx;
+    margin-top: 15rpx;
+    position: relative;
+    z-index: 2;
+    color: #e3f2fd;
+    opacity: 0.95;
+    text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.15);
+    font-weight: 300;
+}
+.welcome-card:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+.banner-swiper {
+  height: 200px;
+  margin: 2px 2px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 移除原有搜索栏样式 */
+.search-bar {
+  display: none;
+}
+
+.search-icon {
+    color: #1E3A8A;
+    margin-right: 10rpx;
+    font-size: 32rpx;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 10rpx;
+    font-size: 28rpx;
+}
+
+.search-bar button {
+    margin-left: 10rpx;
+    padding: 12rpx 24rpx;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1E3A8A;
+    border-radius: 30rpx;
+    font-weight: bold;
+    font-size: 28rpx;
+    box-shadow: 0 2rpx 6rpx rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.search-bar button:active {
+    transform: scale(0.95);
+    box-shadow: 0 1rpx 3rpx rgba(255, 215, 0, 0.2);
+}
+
+.bordered {
+    border: none;
+    border-radius: 20rpx;
+    box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.08);
+    padding: 25rpx;
+    background-color: rgba(39, 22, 22, 0); /* 调整透明度，可根据需要修改 */
+    margin-bottom: 25rpx;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* 原有样式保留，新增以下属性 */
+  backdrop-filter: blur(12rpx); /* 毛玻璃模糊值，根据需求调整 */
+  -webkit-backdrop-filter: blur(12rpx); /* 兼容 WebKit 内核 */
+  /* 可选：添加线性渐变增强质感 */
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.3) 75%);
+}
+/* 可选：优化 hover 状态的毛玻璃效果 */
+.bordered:hover {
+    transform: translateY(-4rpx);
+    box-shadow: 0 12rpx 24rpx rgba(0,0,0,0.12);
+    backdrop-filter: blur(15rpx);
+  }
+.bordered:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+}
+
+.test-section,
+.gear-section,
+.features-section {
+    margin-top: 20rpx;
+}
+
+.section-header {
+    margin-bottom: 20rpx;
+}
+
+.section-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    margin-bottom: 8rpx;
+    display: block;
+    transition: color 0.5s ease-in-out;
+}
+
+.section-subtitle {
+    font-size: 24rpx;
+    color: #6c757d;
+    display: block;
+}
+
+.gear-title {
+    transition: color 0.5s ease-in-out;
+}
+
+.test-grid,
+.gear-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15rpx;
+    padding: 10rpx;
+}
+
+.test-grid-2x2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20rpx;
+}
+
+.test-more-btn {
+    background: linear-gradient(135deg, #2C3E50, #BDC3C7);
+    
+}
+
+.test-btn {
+    background: linear-gradient(135deg, #6664e7, #8ab6d3);
+    color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20rpx 15rpx;
+    border-radius: 15rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    box-shadow: 0 4rpx 8rpx rgba(30, 58, 138, 0.3);
+    transition: all 0.5s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+/* 调整 test-grid-2x2 的布局 */
+.test-grid.test-grid-2x2 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 设置顶部按钮行的样式 */
+.test-grid.test-grid-2x2 .top-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 设置顶部按钮的宽度 */
+.test-grid.test-grid-2x2 .top-row .test-btn {
+    width: calc(50% - 12rpx); /* 减去一些间距 */
+}
+.title-icon {
+    width: 20px; /* 设定图标宽度 */
+    height: 20px; /* 设定图标高度 */
+    vertical-align: middle; /* 使图标和文字垂直居中 */
+    margin-right: 5px; /* 调整图标和文字之间的间距 */
+  }
+/* 设置查看全部测试按钮的样式 */
+.test-grid.test-grid-2x2 .test-btn.test-more-btn {
+    width: 100%;
+    background: #BDC3C7; /* 接近 home 背景色 */
+    font-weight: normal; /* 文字不加粗 */
+    margin-top: 10rpx; /* 与上面按钮的间距 */
+    
+    /* 添加 Flexbox 布局 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30rpx; /* 增加左右内边距 */
+}
+/* 随机测试按钮特殊样式 */
+.random-test-btn {
+    background: linear-gradient(45deg, #46b1cc, #6664e7, #8ab6d3, #f1a43e);
+    background-size: 300% 300%;
+    animation: randomGradient 3s ease infinite, pulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes randomGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.random-test-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.random-icon {
+    display: inline-block;
+    margin-right: 8rpx;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 移除从左到右的方块移动动效 */
+.test-btn:active {
+    opacity: 0.9;
+}
+
+.gear-btn {
+    background: linear-gradient(135deg, #5e6c86, #BDC3C7);
+    color: white;
+    width: 100%;
+    height: 90rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20rpx 15rpx;
+    border-radius: 15rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    box-shadow: 0 4rpx 8rpx rgba(212, 231, 105, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    height: 100rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 移除从左到右的方块移动动效 */
+.gear-btn:active {
+    opacity: 0.9;
+}
+
+.btn-hover {
+    transform: scale(0.95);
+    opacity: 0.9;
+}
+
+.more-arrow {
+    text-align: center;
+    font-size: 26rpx;
+    margin-top: 15rpx;
+    font-weight: bold;
+    color: #b6d3ec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.more-arrow:active {
+    opacity: 0.7;
+}
+
+.arrow-icon {
+    font-size: 36rpx;
+    margin-left: 5rpx;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10rpx);
+    }
+    60% {
+        transform: translateY(-5rpx);
+    }
+}
+
+.topicon {
+    padding-right: 50rpx
+}
+
+.huanyingtips {
+    color: #d48806;
+    font-size: 28rpx;
+    flex: 1;
+    margin-left: 20rpx;
+}
+
+.close-btn {
+    width: 40rpx;
+    height: 40rpx;
+    transition: transform 0.3s;
+}
+.close-btn:active {
+    transform: scale(0.9);
+  }
+  
+.header {
+    margin-bottom: 40rpx;
+  }
+.first-tip {
+    position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  height: 80rpx;
+  background:rgb(37, 71, 96);
+  padding: 20rpx 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+  animation: slideDown 0.5s ease;
+  /* 适配刘海屏 */
+  padding-top: calc(20rpx + env(safe-area-inset-top));
+}
+@keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+.features-section {
+    margin-top: 20rpx;
+}
+
+.features-title {
+    transition: color 0.5s ease-in-out;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: rpx;
+    padding: 10rpx;
+}
+.feature-icon {
+    width: 30rpx; /* 图标宽度 */
+    height: 30rpx; /* 图标高度 */
+    margin-right: 8rpx; /* 图标与文字间距 */
+    vertical-align: middle; /* 解决基线对齐问题 */
+  }
+  
+.feature-btn {
+    padding: 18rpx 15rpx;
+    border-radius: 15rpx;
+    font-size: 28rpx;
+    font-weight: bold;
+    box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap; /* 防止文字换行 */
+}
+
+/* 移除从左到右的方块移动动效 */
+.feature-btn:active {
+    opacity: 0.9;
+}
+
+.simulator-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    animation: shine 3s linear infinite;
+}
+
+.simulator-icon {
+    display: inline-block;
+    margin-right: 8rpx;
+    animation: spin 3s linear infinite;
+}
+
+.equipment-btn {
+    background: linear-gradient(135deg, #C0B283, #3CB371);
+}
+.music-btn {
+    background: linear-gradient(135deg, #C0B283, #ee1414);
+}
+
+.weather-btn {
+    background: linear-gradient(135deg, #3CB371, #C0B283);
+}
+
+.other-btn {
+    background: linear-gradient(135deg, #9932CC, #BA55D3);
+}
+
+.simulator-btn {
+    background: linear-gradient(45deg, #46b1cc, #3CB371, #8ab6d3, #f1a43e);
+    background-size: 300% 300%;
+    animation: randomGradient 3s ease infinite, pulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.tips {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20rpx 30rpx;
+    border-radius: 10rpx;
+    z-index: 9999;
+    font-size: 30rpx;
+}
+/* 定义向右移动的动画 */
+@keyframes slideRight {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(6rpx); } /* 向右移动5rpx */
+    100% { transform: translateX(0); }
+}
+
+/* 应用动画到箭头图标 */
+.test-grid.test-grid-2x2 .test-btn.test-more-btn .arrow-icon {
+    display: inline-block;
+    animation: slideRight 1.2s infinite ease-in-out; /* 使用向右移动动画 */
+}
