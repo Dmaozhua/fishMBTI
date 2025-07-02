@@ -1,5 +1,5 @@
 // 手势识别器
-export class GestureRecognizer {
+class GestureRecognizer {
     constructor() {
       this.startX = 0;
       this.startY = 0;
@@ -55,3 +55,7 @@ export class GestureRecognizer {
       return directions.find(d => angle >= d.range[0] && angle < d.range[1])?.type || "SWIPE_UNKNOWN";
     }
   }
+
+module.exports = {
+  GestureRecognizer
+};

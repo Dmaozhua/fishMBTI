@@ -5,7 +5,8 @@ App({
     fishingSessionCount: 0, // 添加钓鱼会话次数计数器
     fishEscaped: 0, // 添加累计跑鱼次数计数器
     isGlobalLoading: true, // 全局加载状态
-    loadingText: '正在初始化...' // 加载文本
+    loadingText: '正在初始化...', // 加载文本
+    testResult: null // 测试结果数据
   },
   
   onLaunch() {

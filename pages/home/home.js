@@ -79,5 +79,14 @@ Page({
     wx.navigateTo({
       url: '/pages/test/test?type=professional'
     })
+  },
+
+  /**
+   * 跳转到MBTI测试
+   */
+  goToMBTITest() {
+    wx.navigateTo({
+      url: '/pages/test/test?type=mbti'
+    })
   }
 })

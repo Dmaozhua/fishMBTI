@@ -7,7 +7,8 @@
     "pages": [
         "pages/home/home",
         "pages/profile/profile",
-        "pages/test/test"
+        "pages/test/test",
+        "pages/result/result"
     ],
     "window": {
         "navigationBarTitleText": "钓鱼人MBTI",
@@ -36,7 +37,7 @@
             },
             {
                 "pagePath": "pages/profile/profile",
-                "text": "个人中心",
+                "text": "测试记录",
                 "iconPath": "/images/tab/路亚轮.png",
                 "selectedIconPath": "/images/tab/路亚轮 (1).png"
             }

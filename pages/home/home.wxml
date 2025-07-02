@@ -33,7 +33,7 @@
         <view class="test-module">
             <view class="module-header">
                 <text class="module-title">🎯 专业版本</text>
-                <text class="module-subtitle">15分钟深度分析</text>
+                <text class="module-subtitle" bindtap="goToMBTITest">15分钟深度分析</text>
             </view>
             <view class="module-content">
                 <text class="module-desc">全面深入的性格分析，精准匹配钓鱼类型</text>

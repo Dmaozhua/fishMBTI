@@ -11,7 +11,7 @@ let loadingTimer = null;
  * @param {string} title 加载提示文字
  * @param {boolean} mask 是否显示遮罩层
  */
-export const showLoading = (title = '加载中...', mask = true) => {
+const showLoading = (title = '加载中...', mask = true) => {
   if (loadingCount === 0) {
     wx.showLoading({ 
       title, 
@@ -37,7 +37,7 @@ export const showLoading = (title = '加载中...', mask = true) => {
 /**
  * 隐藏加载动画
  */
-export const hideLoading = () => {
+const hideLoading = () => {
   loadingCount--;
   if (loadingCount <= 0) {
     wx.hideLoading();
@@ -54,7 +54,7 @@ export const hideLoading = () => {
  * @param {Object} page 页面实例
  * @param {string} text 加载文字
  */
-export const showPageLoading = (page, text = '加载中...') => {
+const showPageLoading = (page, text = '加载中...') => {
   if (page && page.setData) {
     page.setData({
       pageLoading: true,
@@ -67,7 +67,7 @@ export const showPageLoading = (page, text = '加载中...') => {
  * 隐藏页面级加载组件
  * @param {Object} page 页面实例
  */
-export const hidePageLoading = (page) => {
+const hidePageLoading = (page) => {
   if (page && page.setData) {
     page.setData({
       pageLoading: false
@@ -81,7 +81,7 @@ export const hidePageLoading = (page) => {
  * @param {string} loadingText 加载提示文字
  * @returns {Promise} 下载结果
  */
-export const downloadWithLoading = (url, loadingText = '下载资源中...') => {
+const downloadWithLoading = (url, loadingText = '下载资源中...') => {
   return new Promise((resolve, reject) => {
     showLoading(loadingText);
     
@@ -107,30 +107,11 @@ export const downloadWithLoading = (url, loadingText = '下载资源中...') => 
   });
 };
 
-/**
- * 网络请求函数，带加载动画
- * @param {Object} options 请求参数
- * @param {string} loadingText 加载提示文字
- * @returns {Promise} 请求结果
- */
-export const requestWithLoading = (options, loadingText = '请求中...') => {
-  return new Promise((resolve, reject) => {
-    showLoading(loadingText);
-    
-    wx.request({
-      ...options,
-      success: (res) => {
-        hideLoading();
-        resolve(res);
-      },
-      fail: (err) => {
-        hideLoading();
-        wx.showToast({
-          title: '请求失败',
-          icon: 'error'
-        });
-        reject(err);
-      }
-    });
-  });
+module.exports = {
+  showLoading,
+  hideLoading,
+  showPageLoading,
+  hidePageLoading,
+  downloadWithLoading,
+  requestWithLoading
 };

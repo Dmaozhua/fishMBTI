@@ -25,17 +25,32 @@
     <!-- 测试记录模块 -->
     <view class="function-module">
       <view class="module-header">
-        <text class="module-title">📊 测试记录</text>
+        <text class="module-title">📊 测试历史</text>
         <text class="module-subtitle">查看历史测试结果</text>
       </view>
       <view class="module-content">
         <text class="module-desc">回顾你的钓鱼人格测试历程</text>
-        <button class="function-btn records" hover-class="btn-hover">查看记录</button>
+        <view class="history-list" wx:if="{{testHistory.length > 0}}">
+          <view class="history-item" wx:for="{{testHistory}}" wx:key="id" bindtap="viewHistoryResult" data-history="{{item}}">
+            <view class="history-main">
+              <text class="history-title">{{item.title}}</text>
+              <text class="history-percentage">稀有占比: {{item.resultPercentage}}%</text>
+            </view>
+            <view class="history-meta">
+              <text class="history-date">{{item.date}} {{item.time}}</text>
+              <text class="history-type">{{item.testType === 'quick' ? '速通版' : '完整版'}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="no-history" wx:else>
+          <text class="no-history-text">暂无测试记录</text>
+          <text class="no-history-desc">完成测试后，结果将在这里显示</text>
+        </view>
       </view>
     </view>
 
     <!-- 设置模块 -->
-    <view class="function-module">
+    <!-- <view class="function-module">
       <view class="module-header">
         <text class="module-title">⚙️ 应用设置</text>
         <text class="module-subtitle">个性化配置</text>
@@ -44,11 +59,11 @@
         <text class="module-desc">自定义你的应用体验</text>
         <button class="function-btn settings" hover-class="btn-hover">进入设置</button>
       </view>
-    </view>
+    </view> -->
   </view>
 
   <!-- 更新日志模块 -->
-  <view class="update-log-module">
+  <!-- <view class="update-log-module">
     <view class="module-header" bindtap="toggleUpdateLog">
       <text class="module-title">📝 更新日志</text>
       <text class="module-subtitle">应用版本更新记录</text>
@@ -94,16 +109,13 @@
           <text class="log-version">v1.0.0</text>
           <text class="log-date">2025-03</text>
         </view>
-        <view class="log-details">
-          <view class="log-entry">• 小程序首次发布</view>
-          <view class="log-entry">• 基础功能上线</view>
-        </view>
+
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!-- 底部版权信息 -->
-  <view class="footer">
+  <!-- <view class="footer">
     <text class="copyright">© 2025 钓鱼人测试 版权所有</text>
-  </view>
+  </view> -->
 </view>

@@ -1,0 +1,46 @@
+<!--pages/result/result.wxml-->
+<view class="container">
+
+  <!-- 结果内容 -->
+  <view class="result-content" wx:if="{{resultData}}">
+    <text class="result-title">{{resultData.title || resultData.type}}</text>
+    <text wx:if="{{resultData.resultPercentage}}" class="result-percentage {{resultData.resultPercentage <= 15 ? 'rare-effect' : ''}}">稀有占比：{{resultData.resultPercentage}}%</text>
+    
+    <!-- 人格画像 -->
+    <view class="section-container">
+      <text class="section-title">👤 人格画像</text>
+      <text class="result-desc">{{resultData.description || resultData.desc}}</text>
+    </view>
+    
+    <!-- AI建议 -->
+    <view class="section-container" wx:if="{{resultData.suggestion}}">
+      <text class="section-title">🧠 AI建议</text>
+      <text class="result-desc">{{resultData.suggestion}}</text>
+    </view>
+    
+    <!-- 装备推荐 -->
+    <view class="recommend-section">
+      <text class="recommend-title">🎯 装备推荐</text>
+      <block wx:if="{{resultData.equip}}">
+        <text class="result-desc">{{resultData.equip}}</text>
+      </block>
+      <block wx:else>
+        <block wx:for="{{resultData.recommend}}" wx:key="index">
+          <view class="recommend-item">{{item}}</view>
+        </block>
+      </block>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="action-btn secondary" bindtap="backToHome">返回主页</button>
+      <button class="action-btn primary share-btn" bindtap="shareResult" open-type="share">✨ 分享结果</button>
+    </view>
+  </view>
+
+  <!-- 无数据提示 -->
+  <view class="no-data" wx:else>
+    <text class="no-data-text">暂无测试结果</text>
+    <button class="result-btn" bindtap="backToHome">返回首页</button>
+  </view>
+</view>

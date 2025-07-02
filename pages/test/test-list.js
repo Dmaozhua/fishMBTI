@@ -1,5 +1,5 @@
 // pages/test/test-list.js
-const testData = require('../../data/testDataNew');
+const mbtiData = require('../../data/MBTIData');
 
 // 测试类型定义
 const TEST_TYPES = {
@@ -24,21 +24,20 @@ Page({
     isDragging: false // 标记按钮是否正在拖动中
   },
   onLoad: function() {
-    // 获取所有测试数据并转换为数组格式
+    // 获取MBTI测试数据并转换为数组格式
     const testList = [];
     
-    // 遍历testData中的所有测试对象
-    for (const key in testData) {
-      if (testData.hasOwnProperty(key) && typeof testData[key] === 'object' && testData[key].id && testData[key].title) {
-        testList.push({
-          id: testData[key].id,
-          title: testData[key].title,
-          titleshort: testData[key].titleshort || testData[key].title, // 使用短标题，如果没有则使用完整标题
-          type: testData[key].type || 1, // 默认为类型1
-          key: key,
-          needScroll: false // 默认不需要滚动
-        });
-      }
+    // 使用MBTI测试数据
+    const mbtiTest = mbtiData.mbtiPersonalityTest;
+    if (mbtiTest && mbtiTest.id && mbtiTest.title) {
+      testList.push({
+        id: mbtiTest.id,
+        title: mbtiTest.title,
+        titleshort: mbtiTest.titleshort || mbtiTest.title, // 使用短标题，如果没有则使用完整标题
+        type: mbtiTest.type || 1, // 默认为类型1
+        key: 'mbtiPersonalityTest',
+        needScroll: false // 默认不需要滚动
+      });
     }
     
     // 按id排序
