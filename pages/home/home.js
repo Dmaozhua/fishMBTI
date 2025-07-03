@@ -88,5 +88,14 @@ Page({
     wx.navigateTo({
       url: '/pages/test/test?type=mbti'
     })
+  },
+
+  /**
+   * 跳转到完整版测试（72道题）
+   */
+  goToCompleteTest() {
+    wx.navigateTo({
+      url: '/pages/test/test?type=complete'
+    })
   }
 })

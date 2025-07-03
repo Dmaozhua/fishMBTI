@@ -173,6 +173,7 @@ Page({
                         resultPercentage: historyItem.resultPercentage,
                         suggestion: mbtiResult.suggestion,
                         equip: mbtiResult.equip,
+                        img: mbtiResult.img, // 添加图片URL
                         isHistoryView: true
                     };
                 } else {
@@ -194,6 +195,7 @@ Page({
                 resultPercentage: historyItem.resultPercentage,
                 suggestion: historyItem.aiSuggestion,
                 equip: historyItem.equipmentRecommendation,
+                img: historyItem.img, // 添加图片URL（如果存在）
                 isHistoryView: true
             };
         }

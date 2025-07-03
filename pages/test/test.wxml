@@ -2,58 +2,57 @@
 
 
 
-<view class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" catch:touchmove="true">
-  <!-- 标题 -->
-  <view class="title-box">
-    <text class="title">{{testData.title}}</text>
-  </view>
-<!-- 进度条 -->
-<view class="progress-bar-wrapper">
-    <view class="progress-bar-container">
-        <view class="progress-bar">
-            <view class="progress-bar-inner" style="width: {{progress + '%'}}"></view>
+<view class="page-container">
+  <scroll-view class="container" scroll-y="true" enhanced="true" show-scrollbar="false" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" catch:touchmove="true">
+    <!-- 标题 -->
+    <view class="title-box">
+      <text class="title">{{testData.title}}</text>
+    </view>
+    <!-- 进度条 -->
+    <view class="progress-bar-wrapper">
+        <view class="progress-bar-container">
+            <view class="progress-bar">
+                <view class="progress-bar-inner" style="width: {{progress + '%'}}"></view>
+            </view>
+            <text class="progress-text">当前抛竿进度 {{currentQuestion.id}} / {{totalQuestions}}</text>
         </view>
-        <text class="progress-text">当前抛竿进度 {{currentQuestion.id}} / {{totalQuestions}}</text>
     </view>
-</view>
-<!-- 问题区域增加序号标识 -->
-<view class="question-header">
-  <text class="question-number">问题 {{currentQuestion.id}}</text>
-  <!-- <text class="question-tag">{{testData.tag || '心理测评'}}</text> -->
-</view>
-<!-- 问题内容 -->
-<view class="question-content">
-    <text class="question-text">{{currentQuestion.text}}</text>
-</view>
+    <!-- 问题区域增加序号标识 -->
+    <view class="question-header">
+      <text class="question-number">问题 {{currentQuestion.id}}</text>
+      <!-- <text class="question-tag">{{testData.tag || '心理测评'}}</text> -->
+    </view>
+    <!-- 问题内容 -->
+    <view class="question-content">
+        <text class="question-text">{{currentQuestion.text}}</text>
+    </view>
 
-<!-- 选项列表 -->
-<view class="options-box">
-    <block wx:for="{{currentQuestion.options}}" wx:key="index">
-        <view 
-            class="option-item {{selectedIndex === index ? 'active' : ''}}"
-    bindtap="handleAutoNext"
-    data-index="{{index}}">
-    <text class="option-text">{{item.text}}</text>
+    <!-- 选项列表 -->
+    <view class="options-box">
+        <block wx:for="{{currentQuestion.options}}" wx:key="index">
+            <view 
+                class="option-item {{selectedIndex === index ? 'active' : ''}}"
+        bindtap="handleAutoNext"
+        data-index="{{index}}">
+        <text class="option-text">{{item.text}}</text>
+            </view>
+        </block>
+    </view>
+
+    <!-- 导航按钮 -->
+    <view class="nav-buttons">
+        <view class="nav-btn prev-btn {{currentQuestion.id > 1 ? '' : 'disabled'}}" bindtap="goPrev">
+            <text>上一题</text>
         </view>
-    </block>
-</view>
-
-
-<!-- 导航按钮 -->
-<view class="nav-buttons">
-    <view class="nav-btn prev-btn {{currentQuestion.id > 1 ? '' : 'disabled'}}" bindtap="goPrev">
-        <text>上一题</text>
+        <view class="nav-btn home-btn" bindtap="backToHome">
+            <text>返回主页</text>
+        </view>
     </view>
-    <view class="nav-btn next-btn {{selectedIndex !== null ? '' : 'disabled'}}" bindtap="goNext">
-        <text>下一题</text>
-    </view>
-</view>
-<!-- 底部导航栏增加安全区域适配 -->
-<view class="nav-buttons safe-area"></view>
-  <!-- 返回主页按钮 -->
-  <!-- <view class="home-btn" bindtap="backToHome">
-    <text>返回</text>
-  </view> -->
+    <!-- 返回主页按钮 -->
+    <!-- <view class="home-btn" bindtap="backToHome">
+      <text>返回</text>
+    </view> -->
 
-  <!-- 结果弹窗已移除，现在使用独立的result页面 -->
+    <!-- 结果弹窗已移除，现在使用独立的result页面 -->
+  </scroll-view>
 </view>

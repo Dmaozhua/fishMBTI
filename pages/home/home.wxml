@@ -1,44 +1,58 @@
 <view class="page-container">
-    <!-- 标题 -->
-    <view class="title-section">
-        <text class="main-title">钓鱼人MBTI</text>
-    </view>
-
-    <!-- Banner区域 -->
-    <view class="banner-section">
-        <view class="banner-card">
-            <view class="banner-content">
-                <text class="banner-title">🎣 发现你的钓鱼人格 🎣</text>
-                <text class="banner-subtitle">专业心理测评，解锁你的钓鱼天赋</text>
-            </view>
-            <view class="banner-decoration">🌊</view>
+    <scroll-view class="container" scroll-y="true" enhanced="true" show-scrollbar="false">
+        <!-- 标题 -->
+        <view class="title-section">
+            <text class="main-title">钓鱼人MBTI</text>
         </view>
-    </view>
 
-    <!-- 测试模块 -->
-    <view class="test-modules">
-        <!-- 速通版本 -->
-        <view class="test-module">
-            <view class="module-header">
-                <text class="module-title">⚡ 速通版本</text>
-                <text class="module-subtitle">5分钟快速测评</text>
-            </view>
-            <view class="module-content">
-                <text class="module-desc">简化版测试，快速了解你的钓鱼风格</text>
-                <button class="test-btn quick" hover-class="btn-hover" bindtap="goToQuickTest">开始速通</button>
+        <!-- Banner区域 -->
+        <view class="banner-section">
+            <view class="banner-card">
+                <view class="banner-content">
+                    <text class="banner-title">🎣 发现你的钓鱼人格 🎣</text>
+                    <text class="banner-subtitle">专业心理测评，解锁你的钓鱼天赋</text>
+                </view>
+                <view class="banner-decoration">🌊</view>
             </view>
         </view>
 
-        <!-- 专业版本 -->
-        <view class="test-module">
-            <view class="module-header">
-                <text class="module-title">🎯 专业版本</text>
-                <text class="module-subtitle" bindtap="goToMBTITest">15分钟深度分析</text>
+        <!-- 测试模块 -->
+        <view class="test-modules">
+            <!-- 速通版本 -->
+            <view class="test-module">
+                <view class="module-header">
+                    <text class="module-title">⚡ 速通版本</text>
+                    <text class="module-subtitle">5分钟快速测评</text>
+                </view>
+                <view class="module-content">
+                    <text class="module-desc">简化版测试，快速了解你的钓鱼风格</text>
+                    <button class="test-btn quick" hover-class="btn-hover" bindtap="goToQuickTest">开始速通</button>
+                </view>
             </view>
-            <view class="module-content">
-                <text class="module-desc">全面深入的性格分析，精准匹配钓鱼类型</text>
-                <button class="test-btn professional" hover-class="btn-hover" bindtap="goToProfessionalTest">开始专业测试</button>
+
+            <!-- 专业版本 -->
+            <view class="test-module">
+                <view class="module-header">
+                    <text class="module-title">🎯 专业版本</text>
+                    <text class="module-subtitle" bindtap="goToMBTITest">15分钟深度分析</text>
+                </view>
+                <view class="module-content">
+                    <text class="module-desc">全面深入的性格分析，精准匹配钓鱼类型</text>
+                    <button class="test-btn professional" hover-class="btn-hover" bindtap="goToProfessionalTest">开始专业测试</button>
+                </view>
+            </view>
+
+            <!-- 完整版本 -->
+            <view class="test-module">
+                <view class="module-header">
+                    <text class="module-title">🏆 完整版本</text>
+                    <text class="module-subtitle">25分钟全面测评</text>
+                </view>
+                <view class="module-content">
+                    <text class="module-desc">72道题目完整测试，最精准的钓鱼人格分析</text>
+                    <button class="test-btn complete" hover-class="btn-hover" bindtap="goToCompleteTest">开始完整测试</button>
+                </view>
             </view>
         </view>
-    </view>
+    </scroll-view>
 </view>

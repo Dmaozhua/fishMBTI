@@ -1,6 +1,7 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "钓鱼人MBTI",
-  "navigationBarBackgroundColor": "#ECF0F1",
-  "navigationBarTextStyle": "black"
-}
+    "usingComponents": {},
+    "navigationBarTitleText": "钓鱼人MBTI",
+    "navigationBarBackgroundColor": "#ECF0F1",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  }

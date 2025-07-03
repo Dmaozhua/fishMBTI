@@ -3,7 +3,7 @@
 <view class="container">
   <!-- 标题 -->
   <view class="title-section">
-    <text class="main-title">我的钓鱼档案</text>
+    <text class="main-title">测试记录</text>
   </view>
 
   <!-- 用户信息Banner -->
@@ -38,7 +38,7 @@
             </view>
             <view class="history-meta">
               <text class="history-date">{{item.date}} {{item.time}}</text>
-              <text class="history-type">{{item.testType === 'quick' ? '速通版' : '完整版'}}</text>
+              <text class="history-type">{{item.testType === 'quick' ? '速通版' : (item.testType === 'normal' ? '专业版' : '完整版')}}</text>
             </view>
           </view>
         </view>

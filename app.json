@@ -11,12 +11,13 @@
         "pages/result/result"
     ],
     "window": {
-        "navigationBarTitleText": "钓鱼人MBTI",
+        "navigationStyle": "custom",
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#1E3A8A",
-        "navigationBarTextStyle": "white",
-        "navigationStyle": "custom"
-    },
+        "backgroundColor": "#F5F5F5",
+        "navigationBarBackgroundColor": "#F5F5F5",
+        "navigationBarTitleText": "钓鱼MBTI测试",
+        "navigationBarTextStyle": "black"
+      },
     "debug": true,
     "permission": {
         "scope.userLocation": {

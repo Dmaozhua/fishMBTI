@@ -1,5 +1,6 @@
 const mbtiDataModule = require('../../data/MBTIData');
 const mbtiData28Module = require('../../data/MBTIData28');
+const mbtiData72Module = require('../../data/MBTIData72');
 
 Page({
   data: {
@@ -99,6 +100,14 @@ touchEnd(e) {
         console.error('MBTIData28 not found, falling back to default test');
         selectedTest = mbtiDataModule.mbtiPersonalityTest;
       }
+    } else if (this.options && this.options.type === 'complete') {
+      // 使用MBTIData72.js的完整版测试数据
+      if (mbtiData72Module && mbtiData72Module.mbtiPersonalityTestComplete) {
+        selectedTest = mbtiData72Module.mbtiPersonalityTestComplete;
+      } else {
+        console.error('MBTIData72 not found, falling back to default test');
+        selectedTest = mbtiDataModule.mbtiPersonalityTest;
+      }
     } else {
       selectedTest = wx.getStorageSync('selectedTest') || mbtiDataModule.mbtiPersonalityTest;
     }
@@ -111,6 +120,7 @@ touchEnd(e) {
 
     // 重置所有标志位，确保页面状态干净
     this.isCalculatingResult = false;
+    this.lastSaveTime = null; // 重置保存时间戳
 
     this.setData({
       testData: selectedTest,
@@ -134,8 +144,11 @@ touchEnd(e) {
   },
 
   selectOption(e) {
-    // 如果正在处理中，则忽略此次点击
-    if (this.data.isProcessing) return;
+    // 如果正在处理中或正在计算结果，则忽略此次点击
+    if (this.data.isProcessing || this.isCalculatingResult) {
+      console.log('[防重复] 正在处理中，忽略点击');
+      return;
+    }
     
     // 设置处理标志位，防止连点
     this.setData({ isProcessing: true });
@@ -150,8 +163,11 @@ touchEnd(e) {
   },
 
   handleAutoNext(e) {
-    // 如果正在处理中，则忽略此次点击
-    if (this.data.isProcessing) return;
+    // 如果正在处理中或正在计算结果，则忽略此次点击
+    if (this.data.isProcessing || this.isCalculatingResult) {
+      console.log('[防重复] 正在处理中，忽略自动下一题点击');
+      return;
+    }
     
     const index = e.currentTarget.dataset.index;
     
@@ -159,8 +175,12 @@ touchEnd(e) {
     
     // 短暂延迟后自动进入下一题，给用户一个视觉反馈的时间
     setTimeout(() => {
-      // 确保选中状态在进入下一题前已被正确处理
-      this.goNext();
+      // 再次检查是否正在计算结果
+      if (!this.isCalculatingResult) {
+        this.goNext();
+      } else {
+        console.log('[防重复] 延迟执行时检测到正在计算结果，取消自动下一题');
+      }
     }, 350); // 增加延迟时间，确保视觉反馈完成
   },
 
@@ -271,10 +291,18 @@ touchEnd(e) {
       });
     
     } else {
-      // 防止重复计算结果
+      // 防止重复计算结果 - 加强版防重复机制
       if (!this.isCalculatingResult) {
         this.isCalculatingResult = true;
-        this.calculateResult();
+        // 立即设置处理标志位，防止连续点击
+        this.setData({ isProcessing: true });
+        
+        // 延迟执行结果计算，确保UI状态已更新
+        setTimeout(() => {
+          this.calculateResult();
+        }, 100);
+      } else {
+        console.log('[防重复] 结果正在计算中，忽略重复提交');
       }
     }
   },
@@ -308,6 +336,13 @@ touchEnd(e) {
   },
   
   calculateResult() {
+    // 双重检查防重复机制
+    if (this.isCalculatingResult !== true) {
+      console.log('[防重复] calculateResult被重复调用，已忽略');
+      return;
+    }
+    
+    console.log('[结果计算] 开始计算测试结果');
     
     // 确保答案数量不超过题目数量
     let validAnswers = this.data.answers;
@@ -652,12 +687,23 @@ evaluateFormula(formula, env) {
   saveTestHistory(result) {
     try {
       const app = getApp();
+      
+      // 防重复保存检查 - 检查是否在短时间内重复保存相同结果
+      const now = Date.now();
+      if (this.lastSaveTime && (now - this.lastSaveTime) < 2000) {
+        console.log('[防重复] 检测到2秒内重复保存，已忽略');
+        return;
+      }
+      this.lastSaveTime = now;
+      
       // 根据options.type确定测试类型
       let testType = 'normal';
       if (this.options && this.options.type === 'quick') {
         testType = 'quick';
       } else if (this.options && this.options.type === 'mbti') {
         testType = 'mbti';
+      } else if (this.options && this.options.type === 'complete') {
+        testType = 'complete';
       }
       
       // 优化存储：只保存索引和基本信息，数据从本地MBTIData中获取
@@ -705,22 +751,27 @@ evaluateFormula(formula, env) {
 
   
   backToHome() {
-    // 添加一个提示，让用户知道手势被触发了
+    // 显示提示，告知用户正在返回主页
     wx.showToast({
-      title: '返回上一页',
-      icon: 'none',
-      duration: 500
+      title: '返回主页',
+      icon: 'success',
+      duration: 1000
     });
     
-    // 返回上一页，如果失败则返回首页
-    wx.navigateBack({
-      delta: 1,
-      fail: function() {
-        // 如果没有上一页，则返回首页
-        wx.switchTab({ 
-          url: '/pages/home/home' 
-        });
-      }
+    // 清除答题记录
+    this.setData({
+      answers: [],
+      dimensionScores: {
+        E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0
+      },
+      selectedIndex: null,
+      currentQuestion: {},
+      progress: 0
+    });
+    
+    // 返回首页
+    wx.switchTab({ 
+      url: '/pages/home/home' 
     });
   },
 

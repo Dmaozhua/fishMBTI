@@ -4,6 +4,17 @@
   <!-- 结果内容 -->
   <view class="result-content" wx:if="{{resultData}}">
     <text class="result-title">{{resultData.title || resultData.type}}</text>
+    
+    <!-- MBTI类型图片 -->
+    <view class="result-image-container" wx:if="{{resultData.img}}">
+      <image class="result-image" src="{{resultData.img}}" mode="aspectFit" lazy-load="true" bindload="onImageLoad" binderror="onImageError" wx:if="{{!imageLoadError}}"></image>
+      <!-- 图片加载失败时的占位符 -->
+      <view class="image-placeholder" wx:if="{{imageLoadError}}">
+        <text class="placeholder-icon">🎣</text>
+        <text class="placeholder-text">{{resultData.type || 'MBTI'}}</text>
+      </view>
+    </view>
+    
     <text wx:if="{{resultData.resultPercentage}}" class="result-percentage {{resultData.resultPercentage <= 15 ? 'rare-effect' : ''}}">稀有占比：{{resultData.resultPercentage}}%</text>
     
     <!-- 人格画像 -->

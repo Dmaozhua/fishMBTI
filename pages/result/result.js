@@ -1,7 +1,9 @@
 // pages/result/result.js
 Page({
   data: {
-    resultData: null
+    resultData: null,
+    imageLoaded: false,
+    imageLoadError: false
   },
 
   onLoad: function(options) {
@@ -43,6 +45,28 @@ Page({
         }, 100);
       }
     }
+  },
+
+  // 图片加载成功
+  onImageLoad() {
+    this.setData({
+      imageLoaded: true
+    });
+    console.log('MBTI类型图片加载成功');
+  },
+
+  // 图片加载失败
+  onImageError(e) {
+    console.error('MBTI类型图片加载失败:', e.detail);
+    this.setData({
+      imageLoadError: true
+    });
+    // 显示占位符
+    wx.showToast({
+      title: '图片加载失败',
+      icon: 'none',
+      duration: 2000
+    });
   },
 
   // 返回首页
@@ -95,7 +119,7 @@ Page({
   onShareAppMessage() {
     const resultData = this.data.resultData;
     return {
-      title: `我的钓鱼人MBTI测试结果：${resultData.title}`,
+      title: `钓鱼人MBTI：我的获得了 ${resultData.title}`,
       path: '/pages/home/home',
       imageUrl: '' // 可以设置分享图片
     };
