@@ -39,15 +39,6 @@
         </block>
     </view>
 
-    <!-- 导航按钮 -->
-    <view class="nav-buttons">
-        <view class="nav-btn prev-btn {{currentQuestion.id > 1 ? '' : 'disabled'}}" bindtap="goPrev">
-            <text>上一题</text>
-        </view>
-        <view class="nav-btn home-btn" bindtap="backToHome">
-            <text>返回主页</text>
-        </view>
-    </view>
     <!-- 返回主页按钮 -->
     <!-- <view class="home-btn" bindtap="backToHome">
       <text>返回</text>
@@ -55,4 +46,14 @@
 
     <!-- 结果弹窗已移除，现在使用独立的result页面 -->
   </scroll-view>
+  
+  <!-- 导航按钮移到scroll-view外部，确保层级不受影响 -->
+  <view class="nav-buttons">
+      <view class="nav-btn prev-btn {{currentQuestion.id > 1 ? '' : 'disabled'}}" bindtap="goPrev">
+          <text>上一题</text>
+      </view>
+      <view class="nav-btn home-btn" bindtap="backToHome">
+          <text>返回主页</text>
+      </view>
+  </view>
 </view>

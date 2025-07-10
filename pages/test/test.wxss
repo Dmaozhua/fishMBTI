@@ -259,23 +259,25 @@
 .nav-buttons {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* 添加这一行让按钮垂直居中 */
     /* 修改宽度设置，确保内边距不会使元素超出屏幕 */
     width: calc(100% - 40rpx); 
     position: fixed;
-    bottom: 20rpx;
-    /* 使用 left 和 right 为 auto 来实现水平居中 */
-    left: auto;
-    right: auto;
-    margin: 0 auto; 
+    bottom: calc(20rpx + env(safe-area-inset-bottom));
+    /* 使用 left 和 transform 来实现完美居中 */
+    left: 50%;
+    transform: translateX(-50%);
     padding: 20rpx;
     padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
     box-sizing: border-box;
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0);
     backdrop-filter: blur(10rpx);
     border-radius: 20rpx;
-    box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.1);
+
+    height: 120rpx; /* 调整组件的高度，可根据实际情况修改 */
 }
+
 
 .nav-btn {
   padding: 20rpx 40rpx;

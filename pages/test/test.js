@@ -85,31 +85,46 @@ touchEnd(e) {
     let selectedTest;
     
     // 根据页面参数选择测试数据
-    if (this.options && this.options.type === 'mbti') {
-      if (mbtiDataModule && mbtiDataModule.mbtiPersonalityTest) {
-        selectedTest = mbtiDataModule.mbtiPersonalityTest;
-      } else {
-        console.error('MBTI data not found, falling back to default test');
-        selectedTest = mbtiDataModule.mbtiPersonalityTest;
-      }
-    } else if (this.options && this.options.type === 'quick') {
-      // 使用MBTIData28.js的精简版测试数据
+    if (this.options && this.options.type === 'quick') {
+      // 使用MBTIData28.js的精简版测试数据（速通版使用28题）
       if (mbtiData28Module && mbtiData28Module.mbtiPersonalityTestLite) {
         selectedTest = mbtiData28Module.mbtiPersonalityTestLite;
+        console.log(`[数据加载] 成功加载28题精简版测试数据 (类型: ${this.options.type})`);
       } else {
         console.error('MBTIData28 not found, falling back to default test');
         selectedTest = mbtiDataModule.mbtiPersonalityTest;
+      }
+    } else if (this.options && this.options.type === 'professional') {
+      // 使用MBTIData.js的标准48题测试数据（专业版使用48题）
+      if (mbtiDataModule && mbtiDataModule.mbtiPersonalityTest) {
+        selectedTest = mbtiDataModule.mbtiPersonalityTest;
+        console.log('[数据加载] 成功加载48题专业版测试数据');
+      } else {
+        console.error('MBTI data not found, falling back to 28-question test');
+        selectedTest = mbtiData28Module.mbtiPersonalityTestLite;
       }
     } else if (this.options && this.options.type === 'complete') {
       // 使用MBTIData72.js的完整版测试数据
       if (mbtiData72Module && mbtiData72Module.mbtiPersonalityTestComplete) {
         selectedTest = mbtiData72Module.mbtiPersonalityTestComplete;
+        console.log('[数据加载] 成功加载72题完整版测试数据');
       } else {
         console.error('MBTIData72 not found, falling back to default test');
         selectedTest = mbtiDataModule.mbtiPersonalityTest;
       }
+    } else if (this.options && this.options.type === 'mbti') {
+      // 使用MBTIData.js的标准48题测试数据
+      if (mbtiDataModule && mbtiDataModule.mbtiPersonalityTest) {
+        selectedTest = mbtiDataModule.mbtiPersonalityTest;
+        console.log('[数据加载] 成功加载48题标准版测试数据');
+      } else {
+        console.error('MBTI data not found, falling back to 28-question test');
+        selectedTest = mbtiData28Module.mbtiPersonalityTestLite;
+      }
     } else {
-      selectedTest = wx.getStorageSync('selectedTest') || mbtiDataModule.mbtiPersonalityTest;
+      // 默认使用28题精简版，而不是48题完整版
+      selectedTest = wx.getStorageSync('selectedTest') || mbtiData28Module.mbtiPersonalityTestLite;
+      console.log('[数据加载] 使用默认28题精简版测试数据');
     }
 
     // 最终安全检查
@@ -528,36 +543,10 @@ evaluateFormula(formula, env) {
       let result = false;
       
       try {
-          // 使用eval来处理复杂的逻辑表达式，但确保安全性
-          // 先验证公式只包含允许的字符和运算符
-          const allowedPattern = /^[\d\s\(\)\&\|\!\=\<\>\+\-\*\/\.]+$/;
-          if (allowedPattern.test(processedFormula)) {
-              console.log(`[公式计算] 使用eval计算: ${processedFormula}`);
-              result = eval(processedFormula);
-              console.log(`[公式计算] eval结果: ${result}`);
-          } else {
-              console.log(`[公式计算] 公式包含不允许字符，使用简单比较: ${processedFormula}`);
-              // 如果包含不允许的字符，回退到简单比较
-              if (processedFormula.includes('>=')) {
-                  const parts = processedFormula.split('>=');
-                  result = Number(parts[0].trim()) >= Number(parts[1].trim());
-              } else if (processedFormula.includes('<=')) {
-                  const parts = processedFormula.split('<=');
-                  result = Number(parts[0].trim()) <= Number(parts[1].trim());
-              } else if (processedFormula.includes('>')) {
-                  const parts = processedFormula.split('>');
-                  result = Number(parts[0].trim()) > Number(parts[1].trim());
-              } else if (processedFormula.includes('<')) {
-                  const parts = processedFormula.split('<');
-                  result = Number(parts[0].trim()) < Number(parts[1].trim());
-              } else if (processedFormula.includes('==')) {
-                  const parts = processedFormula.split('==');
-                  result = Number(parts[0].trim()) == Number(parts[1].trim());
-              } else if (processedFormula.includes('!=')) {
-                  const parts = processedFormula.split('!=');
-                  result = Number(parts[0].trim()) != Number(parts[1].trim());
-              }
-          }
+          // 不使用eval，改用安全的公式解析
+          console.log(`[公式计算] 使用安全解析计算: ${processedFormula}`);
+          result = this.safeEvaluateFormula(processedFormula);
+          console.log(`[公式计算] 安全解析结果: ${result}`);
       } catch (evalError) {
           console.warn('[公式计算] eval失败，使用简单比较:', processedFormula, evalError);
           // 回退到简单比较逻辑
@@ -606,9 +595,108 @@ evaluateFormula(formula, env) {
       console.error('公式执行失败:', formula, e);
       return false;
   }
-}
+},
 
-,
+// 安全的公式计算函数，不使用eval
+safeEvaluateFormula(formula) {
+  console.log(`[安全解析] 开始解析公式: ${formula}`);
+  
+  // 处理逻辑运算符 && 和 ||
+  if (formula.includes('&&')) {
+    const parts = formula.split('&&');
+    console.log(`[安全解析] 发现AND运算符，分割为: ${parts}`);
+    
+    for (let part of parts) {
+      const partResult = this.safeEvaluateFormula(part.trim());
+      console.log(`[安全解析] 部分 "${part.trim()}" 结果: ${partResult}`);
+      if (!partResult) {
+        return false; // 任何一个为false，整个表达式为false
+      }
+    }
+    return true; // 所有部分都为true
+  }
+  
+  if (formula.includes('||')) {
+    const parts = formula.split('||');
+    console.log(`[安全解析] 发现OR运算符，分割为: ${parts}`);
+    
+    for (let part of parts) {
+      const partResult = this.safeEvaluateFormula(part.trim());
+      console.log(`[安全解析] 部分 "${part.trim()}" 结果: ${partResult}`);
+      if (partResult) {
+        return true; // 任何一个为true，整个表达式为true
+      }
+    }
+    return false; // 所有部分都为false
+  }
+  
+  // 处理简单比较运算符
+  if (formula.includes('>=')) {
+    const parts = formula.split('>=');
+    const left = Number(parts[0].trim());
+    const right = Number(parts[1].trim());
+    const result = left >= right;
+    console.log(`[安全解析] 比较 ${left} >= ${right} = ${result}`);
+    return result;
+  }
+  
+  if (formula.includes('<=')) {
+    const parts = formula.split('<=');
+    const left = Number(parts[0].trim());
+    const right = Number(parts[1].trim());
+    const result = left <= right;
+    console.log(`[安全解析] 比较 ${left} <= ${right} = ${result}`);
+    return result;
+  }
+  
+  if (formula.includes('==')) {
+    const parts = formula.split('==');
+    const left = Number(parts[0].trim());
+    const right = Number(parts[1].trim());
+    const result = left == right;
+    console.log(`[安全解析] 比较 ${left} == ${right} = ${result}`);
+    return result;
+  }
+  
+  if (formula.includes('!=')) {
+    const parts = formula.split('!=');
+    const left = Number(parts[0].trim());
+    const right = Number(parts[1].trim());
+    const result = left != right;
+    console.log(`[安全解析] 比较 ${left} != ${right} = ${result}`);
+    return result;
+  }
+  
+  if (formula.includes('>')) {
+    const parts = formula.split('>');
+    const left = Number(parts[0].trim());
+    const right = Number(parts[1].trim());
+    const result = left > right;
+    console.log(`[安全解析] 比较 ${left} > ${right} = ${result}`);
+    return result;
+  }
+  
+  if (formula.includes('<')) {
+    const parts = formula.split('<');
+    const left = Number(parts[0].trim());
+    const right = Number(parts[1].trim());
+    const result = left < right;
+    console.log(`[安全解析] 比较 ${left} < ${right} = ${result}`);
+    return result;
+  }
+  
+  // 如果没有运算符，尝试转换为布尔值
+  const numValue = Number(formula.trim());
+  if (!isNaN(numValue)) {
+    return numValue !== 0;
+  }
+  
+  // 默认返回false
+  console.warn(`[安全解析] 无法解析公式: ${formula}`);
+  return false;
+},
+
+
 
   // 计算真实的结果概率分布（优化版本）
   calculateRealResultProbability(targetResult) {
